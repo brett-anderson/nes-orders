@@ -1,0 +1,19 @@
+require: rubocop-rails
+AllCops:
+  Exclude:
+    - 'bin'
+    - 'db/*.rb'
+    - 'lib/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'builds/**/*'
+    - 'cache/**/*'
+    - 'vendor/**/*'
+    - '.k8s/**/*'
+    - '.history/**/*'
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Rails/FilePath:
+  Enabled: false
