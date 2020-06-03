@@ -1,3 +1,36 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.order-container {
+  display: flex;
+}
+
+.current-order {
+  min-width: 500px;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.nes-container.is-dark.product-card {
+  flex-basis: 20%;
+  margin: 20px;
+
+  
+
+  img {
+    width: 100%;
+    margin: 10px 0;
+    position: relative;
+    bottom: 10px;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: right;
+}
