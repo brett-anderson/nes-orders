@@ -29,3 +29,5 @@ tests can be run with `rspec`
   - Currently no error handling in the controllers, definitely something that I would add but felt like out of scope for a project like this.
 - __Pagination__
   - Currently no pagination for orders or products, but would be something to add for a real project.
+- __Product Image Hosting__
+  - Images for the products are saved in the repo, but can easily be refactored to using Active Storage. 
