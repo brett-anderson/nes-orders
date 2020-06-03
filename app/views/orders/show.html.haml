@@ -1,1 +1,69 @@
-%p= @order.id
+.nes-container
+  .order-container
+    - if @order.draft?
+      .nes-container.with-title
+        .title Add A Product
+        = form_with url: order_url(@order), method: :get, local: true do |f|
+          .nes-field.is-inline
+            = f.text_field :search, class: 'nes-input', value: @search_value
+            = f.submit 'Search', class: 'nes-btn is-primary'
+        .products
+          - if @products.empty? && @search_value
+            %p= "No products found for #{@search_value}"
+          - @products.each do |product|
+            = render 'products/product_card', product: product do
+              = form_with(model: @order) do |f|
+                = f.hidden_field :product_id, value: product.id
+                = f.submit('+ add', class: 'nes-btn is-primary')
+    .nes-container.with-title.current-order
+      .title= "Order #{@order.id}"
+      %span.nes-badge
+        %span{ class: status_class[@order.status.to_sym] }= @order.status
+      %p.nes-text.is-primary= "Customer: #{@order.customer.name}"
+      - if @order.products.empty?
+        .p To create an order, add products from the left.
+      - else
+        .ordered-products.nes-table-responsive
+          %table.nes-table.is-bordered
+            %thead
+              %tr
+                %th NAME
+                %th COST
+                %th TOTAL
+            %tbody
+              - @order.products.each do |product|
+                %tr
+                  %td= product.name
+                  %td= humanized_money_with_symbol product.cost
+                  %td
+                    - if @order.draft?
+                      = form_with(model: @order) do |f|
+                        - button_class = @order.draft? ? 'is-error' : 'is-disabled'
+                        = f.hidden_field :destroy_product_id, value: product.id
+                        = f.submit('-', class: "nes-btn is-error")
+              %tr
+                %td= 'GST'
+                %td= ' '
+                %td= humanized_money_with_symbol @order.gst
+              %tr
+                %td= 'PST'
+                %td= ' '
+                %td= humanized_money_with_symbol @order.pst
+              %tr
+                %td= 'TOTAL'
+                %td= ' '
+                %td= humanized_money_with_symbol @order.total_cost
+      %br
+      .actions
+        - unless @order.products.empty?
+          = form_with(model: @order) do |f|
+            - button_text = @order.submitted? ? 'Submitted' : 'Submit'
+            - button_class = @order.submitted? ? 'is-disabled' : 'is-success'
+            = f.hidden_field :status, value: :submitted
+            = f.submit(button_text, class: "nes-btn #{button_class}", disabled: @order.submitted? )
+          = form_with(model: @order) do |f|
+            - button_text = @order.cancelled? ? 'Cancelled' : 'Cancel'
+            - button_class = @order.cancelled? ? 'is-disabled' : 'is-error'
+            = f.hidden_field :status, value: :cancelled
+            = f.submit(button_text, class: "nes-btn #{button_class}", disabled: @order.cancelled? )
+

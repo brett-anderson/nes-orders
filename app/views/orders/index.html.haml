@@ -1,0 +1,32 @@
+.nes-container.with-title.orders
+  .title Orders
+  = form_with(model: Order.new, class: 'nes-container with-title', path: orders_path, method: :post) do |f|
+    .title Create Order
+    .label{ for: 'customer' } Customer
+    .nes-select
+      =f.select(:customer_id, options_for_select(Customer.pluck(:name, :id)), id: 'customer')
+    %br
+    =f.submit('Create Order', class: "nes-btn is-primary")
+    
+
+  %br
+  .nes-container.with-title
+    .title Orders
+    - if @orders.empty?
+      %p No Orders Yet! Select a customer and click Create Order to get started.
+    - else
+      .nes-table-responsive
+        %table.nes-table.is-bordered
+          %thead
+            %tr
+              %th #
+              %th Customer
+              %th Total
+              %th Status
+          %tbody
+            - @orders.each do |order|
+              %tr
+                %td= link_to(order.id, order_path(order))
+                %td= order.customer.name
+                %td= humanized_money_with_symbol order.total_cost
+                %td{class: 'nes-text ' + status_class[order.status.to_sym]}= order.status

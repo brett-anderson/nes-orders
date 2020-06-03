@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Ollie</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>Ollie</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  <body>
-    <%= yield %>
-  </body>
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+  <%= link_to(root_url) do %>
+  <h1> <i class="nes-mario"></i> NES Orders</h1>
+  <% end %>
+  <br/>
+  <% if flash.present? %>
+  <div class="nes-container is-dark">
+    <% flash.each do |type, msg| %>>
+    <%= msg %>
+    <% end %>
+  </div>
+  <% end %>
+  <br/>
+  <%= yield %>
+</body>
+
 </html>
