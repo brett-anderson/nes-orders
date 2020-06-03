@@ -22,7 +22,7 @@ tests can be run with `rspec`
 - __Taxes__
   - I briefly looked into an API to calculate taxes based on location, but decided to hard-code a 5% GST an 7% PST.
 - __Searching__
-  - I used postgres's plain text search (ILIKE) to find products.
+  - I used postgres's `ILIKE` to find products.
 - __Status behavior__
   - It seemed to make sense to limit adding products to an order only when it is in draft mode. A user can update an order from draft to either submitted or cancelled, which disables product adding.
 - __Error Handling__
