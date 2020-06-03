@@ -71,7 +71,7 @@ RSpec.describe Order, type: :model do
         expect(order.reload.products.first).to eq product
       end
     end
-  
+
     describe 'destroy_product_id' do
       it 'removes products' do
         order.product_id = product.id

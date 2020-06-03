@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-
   describe 'associations' do
     it { is_expected.to have_and_belong_to_many(:orders) }
   end
@@ -14,9 +13,8 @@ RSpec.describe Product, type: :model do
 
     it 'returns products from a search' do
       products = Product.search('mario')
-      
+
       expect(products).to match_array([product1])
     end
   end
-
 end

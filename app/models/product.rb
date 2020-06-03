@@ -5,5 +5,5 @@ class Product < ApplicationRecord
 
   monetize :cost_cents
 
-  scope :search, -> (value) { where('name ilike ?', "%#{value}%") }
+  scope :search, ->(value) { where('name ilike ?', "%#{value}%") }
 end

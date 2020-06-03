@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Orders', type: :request do
-
   let!(:orders) { FactoryBot.create_list(:order, 3) }
   let!(:products) { FactoryBot.create_list(:product, 10) }
 
@@ -16,19 +15,19 @@ RSpec.describe 'Orders', type: :request do
     it 'returns orders in body' do
       get orders_path
       expect(response.body).to include(orders.first.customer.name)
-    end 
+    end
   end
 
   describe 'POST /orders' do
     let(:customer) { FactoryBot.create(:customer) }
 
     it 'returns 302' do
-      post orders_path, params: { order: { customer_id: customer.id } } 
+      post orders_path, params: { order: { customer_id: customer.id } }
       expect(response).to have_http_status(302)
     end
 
     it 'redirects to the show route' do
-      post orders_path, params: { order: { customer_id: customer.id } } 
+      post orders_path, params: { order: { customer_id: customer.id } }
       expect(response).to redirect_to order_path(Order.last.id)
       follow_redirect!
       expect(response.body).to include(customer.name)
@@ -50,22 +49,22 @@ RSpec.describe 'Orders', type: :request do
     let(:order) { FactoryBot.create(:order) }
     let(:product) { FactoryBot.create(:product) }
     it 'has 302 status' do
-      patch order_path(order), params: { order: { status: :submitted }  }
+      patch order_path(order), params: { order: { status: :submitted } }
       expect(response).to have_http_status 302
     end
     it 'updates status' do
-      patch order_path(order), params: { order: { status: :submitted }  }
-      expect(order.reload.status).to eq "submitted"
+      patch order_path(order), params: { order: { status: :submitted } }
+      expect(order.reload.status).to eq 'submitted'
     end
 
     it 'adds products' do
-      patch order_path(order), params: { order: { product_id: product.id }  }
+      patch order_path(order), params: { order: { product_id: product.id } }
       expect(order.reload.products.first).to eq(product)
     end
 
     it 'removes products' do
       order.products = [product]
-      patch order_path(order), params: { order: { destroy_product_id: product.id }  }
+      patch order_path(order), params: { order: { destroy_product_id: product.id } }
       expect(order.reload.products).to match_array []
     end
   end
