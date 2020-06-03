@@ -1,0 +1,7 @@
+= form_with(model: Order.new, class: 'nes-container with-title', path: orders_path, method: :post) do |f|
+  .title Create Order
+  .label{ for: 'customer' } Customer
+  .nes-select
+    =f.select(:customer_id, options_for_select(Customer.pluck(:name, :id)), id: 'customer')
+  %br
+  =f.submit('Create Order', class: "nes-btn is-primary")

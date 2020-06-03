@@ -1,7 +1,7 @@
 .nes-container
   .order-container
     - if @order.draft?
-      .nes-container.with-title
+      .nes-container.with-title.products-container
         .title Add A Product
         = form_with url: order_url(@order), method: :get, local: true do |f|
           .nes-field.is-inline
