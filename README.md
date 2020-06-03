@@ -27,3 +27,5 @@ tests can be run with `rspec`
   - It seemed to make sense to limit adding products to an order only when it is in draft mode. A user can update an order from draft to either submitted or cancelled, which disables product adding.
 - __Error Handling__
   - Currently no error handling in the controllers, definitely something that I would add but felt like out of scope for a project like this.
+- __Pagination__
+  - Currently no pagination for orders or products, but would be something to add for a real project.
